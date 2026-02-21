@@ -17,6 +17,7 @@ class NoteAdapter(private val onItemClickCallback: OnItemClickCallback) :
                 this.listNotes.clear()
             }
             this.listNotes.addAll(listNotes)
+            notifyDataSetChanged()
         }
 
     fun addItem(note: Note) {

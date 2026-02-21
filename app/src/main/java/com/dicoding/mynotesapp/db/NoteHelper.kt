@@ -24,6 +24,8 @@ class NoteHelper(context: Context) {
         if (database.isOpen) {
             database.close()
         }
+
+        INSTANCE = null
     }
 
     fun queryAll(): Cursor {
@@ -61,7 +63,7 @@ class NoteHelper(context: Context) {
         private const val DATABASE_TABLE = TABLE_NAME
         private var INSTANCE: NoteHelper? = null
         fun getInstance(context: Context): NoteHelper = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: NoteHelper(context)
+            INSTANCE ?: NoteHelper(context).also { INSTANCE = it }
         }
     }
 }

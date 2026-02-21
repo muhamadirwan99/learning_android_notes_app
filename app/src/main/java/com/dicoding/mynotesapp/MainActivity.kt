@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlin.compareTo
 
 class MainActivity : AppCompatActivity() {
 
@@ -143,8 +144,8 @@ class MainActivity : AppCompatActivity() {
                 val cursor = noteHelper.queryAll()
                 MappingHelper.mapCursorToArrayList(cursor)
             }
+            val notes = deferredNotes.await()  // await dulu, baru hide progressbar
             binding.progressbar.visibility = View.INVISIBLE
-            val notes = deferredNotes.await()
             if (notes.size > 0) {
                 adapter.listNotes = notes
             } else {
